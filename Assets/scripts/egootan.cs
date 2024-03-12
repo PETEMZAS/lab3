@@ -9,12 +9,13 @@ public class egootan : MonoBehaviour
     public Vector3 movement;
     [SerializeField] private GameObject pew, pewpistol;
     public Vector3 fireVelocity = new Vector3(10, 8, 0);
-
+    private Animator animatorr;
 
     // Use this for initialization
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        animatorr = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,9 +29,17 @@ public class egootan : MonoBehaviour
             Rigidbody rb2=temp.GetComponent<Rigidbody>();
             rb2.velocity = fireVelocity;
 		}
+		if (Input.GetButtonDown("Fire2"))
+        {
+            animatorr.SetBool("berb", true);
+            Invoke("unberb", 0.3f);
+		}
     }
 
-
+    void unberb()
+	{
+        animatorr.SetBool("berb", false);
+    }
     void FixedUpdate()
     {
         moveCharacter(movement);
